@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { selectSong } from '../actions';
 
 class SongList extends React.Component {
 
@@ -8,7 +9,10 @@ class SongList extends React.Component {
       return (
         <div className="item" key={song.title} >
           <div className="right floated content">
-            <button className="ui button primary">
+            <button 
+              className="ui button primary"
+              onClick={() => this.props.selectSong(song)}
+            >
               select
             </button>
           </div>
@@ -30,8 +34,12 @@ class SongList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return { songs: state.songs };
 }
 
-
-export default connect(mapStateToProps)(SongList);
+// ES2015 selectSong이 이름이 같아서 그냥 넣어도 됨
+export default connect(
+  mapStateToProps, 
+  { selectSong }
+)(SongList);
